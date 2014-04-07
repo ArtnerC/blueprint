@@ -8,6 +8,7 @@ import (
 	logger "log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sync"
 )
 
@@ -59,6 +60,8 @@ func (b *Blueprint) execute(wr io.Writer, name string, data interface{}) error {
 func (b *Blueprint) mapFunc(name string, value interface{}) {
 	b.fmap[name] = value
 }
+
+var templateExp = regexp.MustCompile(`\.html$|\.tmpl$`)
 
 func CompileDir(master, dir string, extra ...string) error {
 	files, err := ioutil.ReadDir(dir)

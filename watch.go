@@ -45,6 +45,7 @@ func worker(in <-chan string, gen string) {
 	for name := range in {
 		name = filepath.Base(name)
 		time.Sleep(500 * time.Millisecond)
+
 		if name == bp.master || isOneOf(name, bp.extra...) {
 			if err := CompileDir(bp.master, bp.dir, bp.extra...); err != nil {
 				log.Print("Recompile Dir Failed: ", err)
